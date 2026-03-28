@@ -1,0 +1,57 @@
+{
+  "server_name": "Walking the Planck",
+  "roles": [
+    { "name": "Admin", "color": "#e74c3c", "permissions": "8" },
+    { "name": "Developer", "color": "#3498db", "permissions": "0" },
+    { "name": "Contributor", "color": "#2ecc71", "permissions": "0" },
+    { "name": "Community", "color": "#95a5a6", "permissions": "0" }
+  ],
+  "categories": [
+    {
+      "name": "📋 INFORMATION",
+      "channels": [
+        { "name": "welcome", "topic": "Welcome to Walking the Planck — physics simulation from first principles.", "readonly": true },
+        { "name": "announcements", "topic": "Releases, updates, and news.", "readonly": true },
+        { "name": "roadmap", "topic": "What we're working on.", "readonly": true }
+      ]
+    },
+    {
+      "name": "💬 COMMUNITY",
+      "channels": [
+        { "name": "general", "topic": "Casual chat about anything." },
+        { "name": "showcase", "topic": "Share creations made with Hyle or Materia." },
+        { "name": "off-topic", "topic": "Everything else." }
+      ]
+    },
+    {
+      "name": "🔬 HYLE — open source",
+      "channels": [
+        { "name": "hyle-general", "topic": "LBM voxel simulation engine discussion. https://github.com/walkingtheplanck/hyle" },
+        { "name": "hyle-help", "topic": "Usage questions, troubleshooting." },
+        { "name": "hyle-dev", "topic": "Contributing, PRs, issues, architecture." }
+      ]
+    },
+    {
+      "name": "⚗️ MATERIA — open source",
+      "channels": [
+        { "name": "materia-general", "topic": "Chemistry → material properties library. https://crates.io/crates/materia" },
+        { "name": "materia-help", "topic": "Usage questions, element data, reactions." },
+        { "name": "materia-dev", "topic": "Contributing, improving estimation models." }
+      ]
+    },
+    {
+      "name": "🎮 BURST — closed source",
+      "channels": [
+        { "name": "burst-updates", "topic": "Release notes, teasers, previews.", "readonly": true },
+        { "name": "burst-feedback", "topic": "Bug reports, feature requests." }
+      ]
+    },
+    {
+      "name": "🤖 BOT",
+      "channels": [
+        { "name": "github-feed", "topic": "Automated: commits, PRs, releases, CI status.", "readonly": true },
+        { "name": "bot-commands", "topic": "Use bot commands here." }
+      ]
+    }
+  ]
+}
