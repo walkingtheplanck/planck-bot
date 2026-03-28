@@ -200,7 +200,7 @@ def reset_server(token: str, guild_id: str):
                 time.sleep(r.json().get("retry_after", 1) + 0.5)
                 requests.delete(f"{API}/channels/{ch['id']}", headers=headers(token))
             print(f"  Deleted #{ch['name']}")
-            time.sleep(0.3)
+            time.sleep(1)  # generous delay to avoid rate limits
         except Exception as e:
             print(f"  Failed to delete #{ch['name']}: {e}")
 
@@ -215,10 +215,13 @@ def reset_server(token: str, guild_id: str):
                 time.sleep(r.json().get("retry_after", 1) + 0.5)
                 requests.delete(f"{API}/guilds/{guild_id}/roles/{role['id']}", headers=headers(token))
             print(f"  Deleted role: {role['name']}")
-            time.sleep(0.3)
+            time.sleep(1)
         except Exception as e:
             print(f"  Failed to delete role {role['name']}: {e}")
 
+    # Wait for Discord to fully process deletions before creating
+    print("  Waiting for Discord to settle...")
+    time.sleep(5)
     print()
 
 
