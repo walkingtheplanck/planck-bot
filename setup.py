@@ -56,9 +56,10 @@ def api_post(token: str, path: str, data: dict):
         time.sleep(retry + 0.5)
         return api_post(token, path, data)
     if r.status_code >= 400:
-        print(f"  API ERROR {r.status_code}: {r.text}")
-        print(f"  Request data: {json.dumps(data, indent=2)}")
-        r.raise_for_status()
+        import sys
+        print(f"  API ERROR {r.status_code}: {r.text}", file=sys.stderr, flush=True)
+        print(f"  Request data: {json.dumps(data)}", file=sys.stderr, flush=True)
+        sys.exit(1)
     return r.json()
 
 
