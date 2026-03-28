@@ -33,6 +33,11 @@ def headers(token: str) -> dict:
 
 def api_get(token: str, path: str):
     r = requests.get(f"{API}{path}", headers=headers(token))
+    if r.status_code == 429:
+        retry = r.json().get("retry_after", 5)
+        print(f"  Rate limited, waiting {retry:.1f}s...")
+        time.sleep(retry + 1)
+        return api_get(token, path)
     if r.status_code == 401:
         print(f"ERROR: Invalid bot token. Check DISCORD_BOT_TOKEN secret.")
         exit(1)
@@ -105,7 +110,7 @@ def create_roles(token: str, guild_id: str, roles: list):
         result = api_post(token, f"/guilds/{guild_id}/roles", data)
         created[name] = result["id"]
         print(f"  Created role: {name}")
-        time.sleep(0.5)
+        time.sleep(1.5)
 
     return created
 
@@ -141,7 +146,7 @@ def create_channels(token: str, guild_id: str, categories: list):
             })
             cat_id = result["id"]
             print(f"  Created category: {cat_name}")
-            time.sleep(0.5)
+            time.sleep(1.5)
 
         # Refresh existing channels after category creation
         existing = api_get(token, f"/guilds/{guild_id}/channels")
@@ -183,7 +188,7 @@ def create_channels(token: str, guild_id: str, categories: list):
             api_post(token, f"/guilds/{guild_id}/channels", data)
             type_label = {0: "", 5: " (announcement)", 15: " (forum)"}.get(ch_type, "")
             print(f"    Created #{ch_name}" + type_label + (" [read-only]" if ch_def.get("readonly") else ""))
-            time.sleep(0.5)
+            time.sleep(1.5)
 
 
 def reset_server(token: str, guild_id: str):
@@ -200,7 +205,7 @@ def reset_server(token: str, guild_id: str):
                 time.sleep(r.json().get("retry_after", 1) + 0.5)
                 requests.delete(f"{API}/channels/{ch['id']}", headers=headers(token))
             print(f"  Deleted #{ch['name']}")
-            time.sleep(1)  # generous delay to avoid rate limits
+            time.sleep(2)  # generous delay to avoid rate limits
         except Exception as e:
             print(f"  Failed to delete #{ch['name']}: {e}")
 
@@ -221,7 +226,7 @@ def reset_server(token: str, guild_id: str):
 
     # Wait for Discord to fully process deletions before creating
     print("  Waiting for Discord to settle...")
-    time.sleep(5)
+    time.sleep(10)
     print()
 
 
