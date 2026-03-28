@@ -166,16 +166,56 @@ def create_channels(token: str, guild_id: str, categories: list):
                     "allow": "0",
                 })
 
+            # Channel type: 0=text, 5=announcement, 15=forum
+            ch_type = ch_def.get("type", 0)
+
             data = {
                 "name": ch_name,
-                "type": 0,  # GUILD_TEXT
+                "type": ch_type,
                 "parent_id": cat_id,
                 "topic": ch_def.get("topic", ""),
                 "permission_overwrites": overrides,
             }
             api_post(token, f"/guilds/{guild_id}/channels", data)
-            print(f"    Created #{ch_name}" + (" (read-only)" if ch_def.get("readonly") else ""))
+            type_label = {0: "", 5: " (announcement)", 15: " (forum)"}.get(ch_type, "")
+            print(f"    Created #{ch_name}" + type_label + (" [read-only]" if ch_def.get("readonly") else ""))
             time.sleep(0.5)
+
+
+def reset_server(token: str, guild_id: str):
+    """Delete ALL non-default channels and roles, then re-apply template."""
+    print("RESETTING SERVER — deleting all channels and custom roles...")
+    print()
+
+    # Delete all channels
+    channels = api_get(token, f"/guilds/{guild_id}/channels")
+    for ch in channels:
+        try:
+            r = requests.delete(f"{API}/channels/{ch['id']}", headers=headers(token))
+            if r.status_code == 429:
+                time.sleep(r.json().get("retry_after", 1) + 0.5)
+                requests.delete(f"{API}/channels/{ch['id']}", headers=headers(token))
+            print(f"  Deleted #{ch['name']}")
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"  Failed to delete #{ch['name']}: {e}")
+
+    # Delete custom roles (skip @everyone and bot-managed roles)
+    roles = api_get(token, f"/guilds/{guild_id}/roles")
+    for role in roles:
+        if role["name"] == "@everyone" or role.get("managed", False):
+            continue
+        try:
+            r = requests.delete(f"{API}/guilds/{guild_id}/roles/{role['id']}", headers=headers(token))
+            if r.status_code == 429:
+                time.sleep(r.json().get("retry_after", 1) + 0.5)
+                requests.delete(f"{API}/guilds/{guild_id}/roles/{role['id']}", headers=headers(token))
+            print(f"  Deleted role: {role['name']}")
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"  Failed to delete role {role['name']}: {e}")
+
+    print()
 
 
 def main():
@@ -183,6 +223,7 @@ def main():
     parser.add_argument("--token", required=True, help="Discord bot token")
     parser.add_argument("--guild", required=True, help="Discord server (guild) ID")
     parser.add_argument("--template", default="template.json", help="Path to template JSON")
+    parser.add_argument("--reset", action="store_true", help="Delete all channels/roles before applying")
     args = parser.parse_args()
 
     with open(args.template) as f:
@@ -190,6 +231,9 @@ def main():
 
     print(f"Applying template to guild {args.guild}...")
     print()
+
+    if args.reset:
+        reset_server(args.token, args.guild)
 
     print("Creating roles...")
     roles = create_roles(args.token, args.guild, template.get("roles", []))

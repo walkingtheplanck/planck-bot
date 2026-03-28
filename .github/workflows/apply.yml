@@ -4,6 +4,12 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      reset:
+        description: 'Delete all channels/roles before applying (full reset)'
+        required: false
+        type: boolean
+        default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -17,4 +23,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests
-      - run: python setup.py --token ${{ secrets.DISCORD_BOT_TOKEN }} --guild ${{ secrets.DISCORD_GUILD_ID }} --template template.json
+      - name: Apply template
+        run: |
+          RESET_FLAG=""
+          if [ "${{ inputs.reset }}" = "true" ]; then
+            RESET_FLAG="--reset"
+          fi
+          python setup.py --token ${{ secrets.DISCORD_BOT_TOKEN }} --guild ${{ secrets.DISCORD_GUILD_ID }} --template template.json $RESET_FLAG

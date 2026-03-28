@@ -8,36 +8,52 @@
   ],
   "categories": [
     {
-      "name": "📋 INFORMATION",
+      "name": "━━━ WELCOME ━━━",
       "channels": [
-        { "name": "welcome", "topic": "Welcome to Walking the Planck — physics simulation from first principles.", "readonly": true },
-        { "name": "announcements", "topic": "Releases, updates, and news.", "readonly": true },
-        { "name": "roadmap", "topic": "What we're working on.", "readonly": true }
+        { "name": "rules", "topic": "Server rules and guidelines.", "readonly": true },
+        { "name": "announcements", "topic": "Releases, updates, and news. Follow this channel to get notified.", "readonly": true, "type": 5 },
+        { "name": "roadmap", "topic": "Current priorities and what's coming next.", "readonly": true },
+        { "name": "introductions", "topic": "New here? Introduce yourself!" }
       ]
     },
     {
-      "name": "💬 COMMUNITY",
+      "name": "━━━ COMMUNITY ━━━",
       "channels": [
-        { "name": "general", "topic": "Casual chat about anything." },
-        { "name": "showcase", "topic": "Share creations made with Hyle, Materia, or Burst." },
-        { "name": "off-topic", "topic": "Everything else." }
+        { "name": "general", "topic": "Hang out, chat about physics, simulation, game dev, or anything." },
+        { "name": "showcase", "topic": "Share what you've built. Screenshots, videos, projects." },
+        { "name": "ideas", "topic": "Feature requests, brainstorming, what-if discussions." },
+        { "name": "off-topic", "topic": "Memes, music, life. Keep it friendly." }
       ]
     },
     {
-      "name": "🔧 PROJECTS",
+      "name": "━━━ HYLE ━━━",
       "channels": [
-        { "name": "hyle", "topic": "Hyle — LBM voxel simulation engine. https://github.com/walkingtheplanck/hyle" },
-        { "name": "materia", "topic": "Materia — chemistry to material properties. https://crates.io/crates/materia" },
-        { "name": "burst", "topic": "Burst — voxel game engine." },
-        { "name": "help", "topic": "Usage questions, troubleshooting for any project." },
-        { "name": "dev", "topic": "Contributing, PRs, issues, architecture discussion." }
+        { "name": "hyle-general", "topic": "Hyle — headless voxel simulation engine with LBM fluid dynamics. github.com/walkingtheplanck/hyle" },
+        { "name": "hyle-help", "topic": "Usage questions, troubleshooting." },
+        { "name": "hyle-dev", "topic": "Contributing, PRs, issues, architecture." }
       ]
     },
     {
-      "name": "🤖 BOT",
+      "name": "━━━ MATERIA ━━━",
       "channels": [
-        { "name": "github-feed", "topic": "Automated: commits, PRs, releases, CI status.", "readonly": true },
-        { "name": "bot-commands", "topic": "Use bot commands here." }
+        { "name": "materia-general", "topic": "Materia — chemical composition to material properties, from first principles. crates.io/crates/materia" },
+        { "name": "materia-help", "topic": "Usage questions, element data, estimation models." },
+        { "name": "materia-dev", "topic": "Contributing, reactions, improving physics models." }
+      ]
+    },
+    {
+      "name": "━━━ BURST ━━━",
+      "channels": [
+        { "name": "burst-general", "topic": "Burst — voxel game engine powered by Hyle." },
+        { "name": "burst-feedback", "topic": "Bug reports, feature requests, gameplay discussion." },
+        { "name": "burst-updates", "topic": "Release notes, teasers, previews.", "readonly": true }
+      ]
+    },
+    {
+      "name": "━━━ FEED ━━━",
+      "channels": [
+        { "name": "releases", "topic": "Automated: new versions of Hyle and Materia.", "readonly": true },
+        { "name": "github", "topic": "Automated: commits, PRs, CI status.", "readonly": true }
       ]
     }
   ]
