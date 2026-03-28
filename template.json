@@ -19,31 +19,18 @@
       "name": "💬 COMMUNITY",
       "channels": [
         { "name": "general", "topic": "Casual chat about anything." },
-        { "name": "showcase", "topic": "Share creations made with Hyle or Materia." },
+        { "name": "showcase", "topic": "Share creations made with Hyle, Materia, or Burst." },
         { "name": "off-topic", "topic": "Everything else." }
       ]
     },
     {
-      "name": "🔬 HYLE — open source",
+      "name": "🔧 PROJECTS",
       "channels": [
-        { "name": "hyle-general", "topic": "LBM voxel simulation engine discussion. https://github.com/walkingtheplanck/hyle" },
-        { "name": "hyle-help", "topic": "Usage questions, troubleshooting." },
-        { "name": "hyle-dev", "topic": "Contributing, PRs, issues, architecture." }
-      ]
-    },
-    {
-      "name": "⚗️ MATERIA — open source",
-      "channels": [
-        { "name": "materia-general", "topic": "Chemistry → material properties library. https://crates.io/crates/materia" },
-        { "name": "materia-help", "topic": "Usage questions, element data, reactions." },
-        { "name": "materia-dev", "topic": "Contributing, improving estimation models." }
-      ]
-    },
-    {
-      "name": "🎮 BURST — closed source",
-      "channels": [
-        { "name": "burst-updates", "topic": "Release notes, teasers, previews.", "readonly": true },
-        { "name": "burst-feedback", "topic": "Bug reports, feature requests." }
+        { "name": "hyle", "topic": "Hyle — LBM voxel simulation engine. https://github.com/walkingtheplanck/hyle" },
+        { "name": "materia", "topic": "Materia — chemistry to material properties. https://crates.io/crates/materia" },
+        { "name": "burst", "topic": "Burst — voxel game engine." },
+        { "name": "help", "topic": "Usage questions, troubleshooting for any project." },
+        { "name": "dev", "topic": "Contributing, PRs, issues, architecture discussion." }
       ]
     },
     {
