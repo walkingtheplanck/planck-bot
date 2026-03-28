@@ -55,7 +55,10 @@ def api_post(token: str, path: str, data: dict):
         print(f"  Rate limited, waiting {retry:.1f}s...")
         time.sleep(retry + 0.5)
         return api_post(token, path, data)
-    r.raise_for_status()
+    if r.status_code >= 400:
+        print(f"  API ERROR {r.status_code}: {r.text}")
+        print(f"  Request data: {json.dumps(data, indent=2)}")
+        r.raise_for_status()
     return r.json()
 
 
