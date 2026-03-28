@@ -33,6 +33,17 @@ def headers(token: str) -> dict:
 
 def api_get(token: str, path: str):
     r = requests.get(f"{API}{path}", headers=headers(token))
+    if r.status_code == 401:
+        print(f"ERROR: Invalid bot token. Check DISCORD_BOT_TOKEN secret.")
+        exit(1)
+    if r.status_code == 403:
+        print(f"ERROR: Bot lacks permissions. Invite with Administrator permission.")
+        exit(1)
+    if r.status_code == 404:
+        print(f"ERROR: Guild not found. Either DISCORD_GUILD_ID is wrong or the bot isn't in the server.")
+        print(f"  1. Right-click your server name in Discord -> Copy Server ID")
+        print(f"  2. Make sure the bot is invited to that server")
+        exit(1)
     r.raise_for_status()
     return r.json()
 
