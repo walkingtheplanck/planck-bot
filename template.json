@@ -11,7 +11,7 @@
       "name": "━━━ WELCOME ━━━",
       "channels": [
         { "name": "rules", "topic": "Server rules and guidelines.", "readonly": true },
-        { "name": "announcements", "topic": "Releases, updates, and news. Follow this channel to get notified.", "readonly": true, "type": 5 },
+        { "name": "announcements", "topic": "Releases, updates, and news.", "readonly": true },
         { "name": "roadmap", "topic": "Current priorities and what's coming next.", "readonly": true },
         { "name": "introductions", "topic": "New here? Introduce yourself!" }
       ]
