@@ -1,0 +1,18 @@
+name: Apply Discord Template
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'template.json'
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - run: python setup.py --token ${{ secrets.DISCORD_BOT_TOKEN }} --guild ${{ secrets.DISCORD_GUILD_ID }} --template template.json
