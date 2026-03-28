@@ -10,6 +10,11 @@ on:
         required: false
         type: boolean
         default: false
+      welcome:
+        description: 'Post welcome embeds to #rules and #roadmap'
+        required: false
+        type: boolean
+        default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -30,3 +35,6 @@ jobs:
             RESET_FLAG="--reset"
           fi
           python setup.py --token ${{ secrets.DISCORD_BOT_TOKEN }} --guild ${{ secrets.DISCORD_GUILD_ID }} --template template.json $RESET_FLAG
+      - name: Post welcome embeds
+        if: inputs.welcome == true || inputs.reset == true
+        run: python welcome.py --token ${{ secrets.DISCORD_BOT_TOKEN }} --guild ${{ secrets.DISCORD_GUILD_ID }}
